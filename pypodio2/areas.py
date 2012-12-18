@@ -67,11 +67,11 @@ class Item(Area):
       """Updates the item using the supplied attributes. If 'silent' is true, Podio will send 
       no notifications to subscribed users and not post updates to the stream. 
       Important: webhooks will still be called, though."""
-        if type(attributes) != dict:
-            return ApiErrorException('Must be of type dict')
-        attributes = json.dumps(attributes)
-        return self.transport.PUT(url='/item/%d%s' % (item_id, "?silent=true" if silent else ""), body=attributes,
-                                   type='application/json')
+      if type(attributes) != dict:
+          return ApiErrorException('Must be of type dict')
+      attributes = json.dumps(attributes)
+      return self.transport.PUT(url='/item/%d%s' % (item_id, "?silent=true" if silent else ""), body=attributes,
+                                 type='application/json')
 
     def delete(self, item_id):
         return self.transport.DELETE(url='/item/%d' % item_id, handler=lambda x, y: None)
